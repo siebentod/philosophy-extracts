@@ -13,10 +13,10 @@
 .modal-content {
   position: relative;
   background: rgba(255, 255, 255);
-  padding: 5vh 6vw;
+  padding: 4vh 4vw;
   border-radius: 5px;
   max-width: 667px;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
   color: black;
   text-align: left;
