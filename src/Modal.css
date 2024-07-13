@@ -13,7 +13,7 @@
 .modal-content {
   position: relative;
   background: rgba(255, 255, 255);
-  padding: 4vh 4vw;
+  padding: 4dvh 4dvw;
   border-radius: 5px;
   max-width: 667px;
   max-height: 93dvh;
