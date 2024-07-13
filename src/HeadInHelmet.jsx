@@ -14,8 +14,8 @@ function HeadInHelmet() {
       <header>
         <div className="links">
           <div className="link link__github">
-            <a href="https://github.com/siebentod/extracts">
-              AP Github{' '}
+            <a href="https://github.com/siebentod/philosophy-extracts">
+              Github{' '}
               <i
                 className="fa-solid fa-arrow-up-right-from-square"
                 style={{ fontSize: '9px' }}
