@@ -12,6 +12,7 @@ const selectStyle = {
     margin: '0px',
     height: 'mincontent',
     transition: 'border-color 0.25s',
+    minHeight: '34px',
   }),
   placeholder: (provided) => ({
     ...provided,
