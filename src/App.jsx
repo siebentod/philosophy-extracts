@@ -8,6 +8,7 @@ import Select from 'react-select';
 import selectStyle from './selectStyle';
 import looseIncludes from './looseIncludes.js';
 import HeadInHelmet from './HeadInHelmet';
+import { Helmet } from 'react-helmet';
 
 function App() {
   const [showModal, setShowModal] = useState(false);
@@ -177,6 +178,11 @@ function App() {
       </main>
       {modalContent && (
         <Modal show={showModal} onClose={closeModal}>
+          <Helmet>
+            <title>
+              {modalContent.title} ({modalContent.author})
+            </title>
+          </Helmet>
           <h2>{modalContent.title}</h2>
           <h4>
             {modalContent.author}, {modalContent.book}
