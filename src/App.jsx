@@ -182,6 +182,10 @@ function App() {
             <title>
               {modalContent.title} ({modalContent.author})
             </title>
+            <meta
+              name="description"
+              content="Антология отрывков философских текстов"
+            />
           </Helmet>
           <h2>{modalContent.title}</h2>
           <h4>
