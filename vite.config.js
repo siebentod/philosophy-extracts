@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react';
 import Sitemap from 'vite-plugin-sitemap';
 import { data } from './src/data';
 
-const dynamicRoutes = ['/', '/about', ...data.map((ar) => `/${ar.id}`)];
+const dynamicRoutes = ['/about', ...data.map((ar) => `/${ar.id}`)];
 
 // https://vitejs.dev/config/
 export default defineConfig({

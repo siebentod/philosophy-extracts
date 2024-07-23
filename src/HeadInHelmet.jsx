@@ -5,7 +5,7 @@ function HeadInHelmet() {
   return (
     <>
       <Helmet>
-        <title>Антология отрывков философских текстов</title>
+        <title>Extracts</title>
         <meta
           name="description"
           content="Антология отрывков философских текстов"
