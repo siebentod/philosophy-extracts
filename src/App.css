@@ -57,6 +57,8 @@ a.card:hover {
   background-color: rgb(27, 27, 27);
   border-radius: 10px;
   padding: 2px 10px !important;
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 1.5px 0 rgba(0, 0, 0, 0.2),
+    0 1px 2px 0 rgba(0, 0, 0, 0.4), 0 0 0 0 transparent;
 }
 
 .card__author p:hover {
