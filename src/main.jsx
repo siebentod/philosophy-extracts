@@ -4,6 +4,7 @@ import App from './App.jsx';
 import './index.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import About from './About.jsx';
+import NotFound from './NotFound.jsx';
 
 (function (m, e, t, r, i, k, a) {
   m[i] =
@@ -38,6 +39,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
         <Route path="/" element={<App />} />
         <Route path="/:id" element={<App />} />
         <Route path="/about" element={<About />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
