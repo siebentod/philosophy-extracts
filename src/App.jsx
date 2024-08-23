@@ -163,6 +163,7 @@ function App() {
     dispatch({
       type: 'hideModal',
     });
+    navigate('/');
   };
 
   const handleRandom = (e) => {
@@ -298,7 +299,11 @@ function App() {
                 {obj.title}
               </div>
               <div className="card__part card__bookAndAuthor">
-                <span className="card__bookAndAuthor__book" key={obj.book}>
+                <span
+                  className="card__bookAndAuthor__book"
+                  key={obj.book}
+                  title={obj.book}
+                >
                   {obj.book}
                 </span>
                 <span
