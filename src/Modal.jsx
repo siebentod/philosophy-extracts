@@ -1,6 +1,23 @@
+import { useEffect } from 'react';
 import './Modal.css';
 
 function Modal({ show, onClose, children }) {
+  useEffect(() => {
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Escape') {
+        onClose();
+      }
+    });
+
+    return () => {
+      window.removeEventListener('keydown', (e) => {
+        if (e.code === 'Escape') {
+          onClose();
+        }
+      });
+    };
+  }, []);
+
   if (!show) {
     return null;
   }

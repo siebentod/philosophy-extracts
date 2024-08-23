@@ -1,37 +1,209 @@
-import { useEffect, useState } from 'react';
-import './App.css';
+import { useEffect, useReducer } from 'react';
+import './App.scss';
+import './index.css';
 import parse from 'html-react-parser';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dataRandom } from './data.js';
 import Modal from './Modal.jsx';
 import Select from 'react-select';
 import selectStyle from './selectStyle';
-import looseIncludes from './looseIncludes.js';
+import { looseIncludes, normalIncludes } from './looseIncludes.js';
 import HeadInHelmet from './HeadInHelmet';
 import { Helmet } from 'react-helmet';
 
+const authors = new Set();
+dataRandom.forEach((item) => {
+  authors.add(item.author);
+});
+const filtered = Array.from(authors)
+  .sort()
+  .map((author) => ({
+    value: author,
+    label: author,
+  }));
+
+const initialState = {
+  filteredArr: dataRandom,
+  filteredCount: dataRandom.length,
+  showModal: false,
+  modalContent: null,
+  searchText: '',
+  selectedPeriod: null,
+  selectedAuthor: null,
+  filteredAuthors: filtered,
+  loose: false,
+  status: '',
+};
+
+function reducer(state, action) {
+  switch (action.type) {
+    case 'filtered':
+      return {
+        ...state,
+        filteredArr: action.payload.filteredArr,
+        filteredCount: action.payload.filteredCount,
+      };
+    case 'searchInput':
+      return {
+        ...state,
+        searchText: action.payload,
+      };
+    case 'chosenPeriod':
+      return {
+        ...state,
+        selectedPeriod: action.payload,
+      };
+    case 'clearPeriod':
+      return {
+        ...state,
+        selectedPeriod: null,
+        selectedAuthor: null,
+        filteredAuthors: initialState.filteredAuthors,
+      };
+    case 'chosenAuthor':
+      return {
+        ...state,
+        selectedAuthor: action.payload,
+      };
+    case 'clearAuthor':
+      return {
+        ...state,
+        selectedAuthor: null,
+      };
+    case 'authorFromCard':
+      return {
+        ...state,
+        status: 'loaded',
+        selectedAuthor: {
+          ...state.selectedAuthor,
+          value: action.payload,
+          label: action.payload,
+        },
+      };
+    case 'filteredAuthors':
+      return {
+        ...state,
+        filteredAuthors: action.payload,
+        selectedAuthor: null,
+      };
+    case 'showModal':
+      return {
+        ...state,
+        modalContent: action.payload,
+        showModal: true,
+        status: 'loaded',
+      };
+    case 'hideModal':
+      return {
+        ...state,
+        showModal: false,
+      };
+    case 'toggleLoose':
+      return {
+        ...state,
+        loose: action.payload,
+      };
+  }
+}
+
 function App() {
-  const [showModal, setShowModal] = useState(false);
-  const [modalContent, setModalContent] = useState(null);
-  const [searchText, setSearchText] = useState('');
-  const [selectedPeriod, setSelectedPeriod] = useState(null);
-  const [selectedAuthor, setSelectedAuthor] = useState(null);
-  const [authorsSet, setAuthorsSet] = useState([]);
-  const [filteredCount, setFilteredCount] = useState(0);
+  const [
+    {
+      filteredArr,
+      filteredCount,
+      showModal,
+      modalContent,
+      searchText,
+      selectedPeriod,
+      selectedAuthor,
+      filteredAuthors,
+      loose,
+      status,
+    },
+    dispatch,
+  ] = useReducer(reducer, initialState);
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { id, authorName } = useParams();
+
+  const onSearchChange = (e) => {
+    const value = e.target.value;
+    dispatch({ type: 'searchInput', payload: value });
+  };
+
+  const onPeriodChange = (selectedPeriod) => {
+    if (selectedPeriod) {
+      dispatch({ type: 'chosenPeriod', payload: selectedPeriod });
+      authorHandleWhenPeriodSelected(selectedPeriod);
+    } else dispatch({ type: 'clearPeriod' });
+  };
+
+  const onAuthorChange = (selectedAuthor) => {
+    if (selectedAuthor) {
+      dispatch({ type: 'chosenAuthor', payload: selectedAuthor });
+      navigate(`/author/${selectedAuthor.value}`);
+    } else dispatch({ type: 'clearAuthor' });
+  };
+
+  const handleCardAuthor = (e, obj) => {
+    e.stopPropagation();
+    dispatch({ type: 'authorFromCard', payload: obj.author });
+    navigate(`/author/${obj.author}`);
+  };
+
+  const openModal = (e, obj) => {
+    e.preventDefault();
+    dispatch({
+      type: 'showModal',
+      payload: obj,
+    });
+    navigate(`/id/${obj.id}`);
+  };
+
+  const closeModal = () => {
+    dispatch({
+      type: 'hideModal',
+    });
+  };
+
+  const handleRandom = (e) => {
+    const filtered = filteredArr;
+    const random = filtered[Math.floor(Math.random() * filteredCount)];
+    openModal(e, random);
+  };
+
+  function authorHandleWhenPeriodSelected(period) {
+    const authors = new Set();
+    dataRandom.forEach((item) => {
+      if (item.period === period.value) {
+        authors.add(item.author);
+      }
+    });
+    const filteredAuthors = Array.from(authors)
+      .sort()
+      .map((author) => ({
+        value: author,
+        label: author,
+      }));
+    dispatch({ type: 'filteredAuthors', payload: filteredAuthors });
+  }
 
   useEffect(() => {
     if (id) {
-      const item = dataRandom.find((obj) => obj.id === id);
+      const item = filteredArr.find((obj) => obj.id === id);
       if (item) {
-        setModalContent(item);
-        setShowModal(true);
+        dispatch({
+          type: 'showModal',
+          payload: item,
+        });
       }
+    } else if (authorName) {
+      dispatch({ type: 'authorFromCard', payload: authorName });
     } else {
-      setShowModal(false);
+      dispatch({
+        type: 'hideModal',
+      });
     }
-  }, [id]);
+  }, [id, authorName]);
 
   useEffect(() => {
     if (showModal) {
@@ -39,87 +211,49 @@ function App() {
     } else {
       document.body.classList.remove('modal-open');
     }
-  }, [showModal]);
+    if (status === 'loaded' && !selectedAuthor && !showModal) {
+      navigate('/');
+    }
+  }, [selectedAuthor, showModal]);
 
   useEffect(() => {
-    const authors = new Set();
-    dataRandom.forEach((item) => {
-      if (!selectedPeriod || item.period === selectedPeriod.value) {
-        authors.add(item.author);
-      }
-    });
-    setAuthorsSet(
-      Array.from(authors).map((author) => ({
-        value: author,
-        label: author,
-      }))
-    );
-    setSelectedAuthor(null);
-  }, [selectedPeriod]);
-
-  const applyFilters = () => {
-    return dataRandom.filter((item) => {
+    const varArrFiltered = dataRandom.filter((item) => {
+      let matchesContent;
       const matchesAuthor = selectedAuthor
         ? item.author === selectedAuthor.value
         : true;
       const matchesPeriod = selectedPeriod
         ? item.period === selectedPeriod.value
         : true;
-      const matchesContent = looseIncludes(searchText, item);
+      loose
+        ? (matchesContent = looseIncludes(searchText, item))
+        : (matchesContent = normalIncludes(searchText, item));
       return matchesPeriod && matchesContent && matchesAuthor;
     });
-  };
-
-  useEffect(() => {
-    setFilteredCount(applyFilters().length);
-  }, [applyFilters]);
-
-  const onSearchChange = (e) => {
-    const value = e.target.value;
-    setSearchText(value);
-  };
-
-  const onPeriodChange = (selectedPeriod) => {
-    setSelectedPeriod(selectedPeriod);
-  };
-
-  const onAuthorChange = (selectedAuthor) => {
-    setSelectedAuthor(selectedAuthor);
-  };
-
-  const handleCardAuthor = (e, obj) => {
-    e.stopPropagation();
-    setSelectedAuthor({ value: obj.author, label: obj.author });
-  };
-
-  const openModal = (e, obj) => {
-    e.preventDefault();
-    setModalContent(obj);
-    setShowModal(true);
-    navigate(`/${obj.id}`);
-  };
-
-  const closeModal = () => {
-    setShowModal(false);
-    navigate('/');
-  };
-
-  const handleRandom = (e) => {
-    const filtered = applyFilters();
-    const random = filtered[Math.floor(Math.random() * applyFilters().length)];
-    openModal(e, random);
-  };
+    const filteredCount = varArrFiltered.length;
+    dispatch({
+      type: 'filtered',
+      payload: { filteredArr: varArrFiltered, filteredCount: filteredCount },
+    });
+  }, [searchText, selectedPeriod, selectedAuthor, loose]);
 
   return (
     <>
       <HeadInHelmet />
       <div className="filter">
-        <input
-          onChange={onSearchChange}
-          type="search"
-          value={searchText}
-          placeholder="Поиск по тексту"
-        />
+        <div className="inputPlusCheckbox">
+          <input
+            onChange={onSearchChange}
+            type="search"
+            value={searchText}
+            placeholder="Поиск по тексту"
+          />
+          <input
+            type="checkbox"
+            title="Loose"
+            onChange={() => dispatch({ type: 'toggleLoose', payload: !loose })}
+          />
+        </div>
         <Select
           options={[
             { value: 'antiquity', label: 'Античность' },
@@ -133,14 +267,16 @@ function App() {
           isClearable
           styles={selectStyle}
           value={selectedPeriod}
+          className="select selectPeriod"
         />
         <Select
-          options={authorsSet}
+          options={filteredAuthors}
           onChange={onAuthorChange}
           placeholder="Выбрать автора"
           isClearable
           styles={selectStyle}
           value={selectedAuthor}
+          className="select selectAuthor"
         />
         <button id="openRandom" onClick={handleRandom}>
           Open Random
@@ -150,37 +286,41 @@ function App() {
         {filteredCount} результатов найдено
       </div>
       <main>
-        {applyFilters().map((obj) => (
-          <a
-            href={`/${obj.id}`}
-            className="card"
-            key={obj.id}
-            onClick={(e) => openModal(e, obj)}
-          >
-            <div className="card__title">
-              <p>{obj.title}</p>
-            </div>
-            <div className="card__part card__author">
-              <p
-                onClick={(e) => {
-                  e.preventDefault();
-                  handleCardAuthor(e, obj);
-                }}
+        <div className="grid">
+          {filteredArr.map((obj) => (
+            <>
+              <div
+                className="card__part card__title"
+                href={`/${obj.id}`}
+                key={obj.id}
+                onClick={(e) => openModal(e, obj)}
               >
-                {obj.author}
-              </p>
-            </div>
-            <div className="card__part card__book">
-              <p>{obj.book}</p>
-            </div>
-          </a>
-        ))}
+                {obj.title}
+              </div>
+              <div className="card__part card__bookAndAuthor">
+                <span className="card__bookAndAuthor__book" key={obj.book}>
+                  {obj.book}
+                </span>
+                <span
+                  className="card__bookAndAuthor__author"
+                  key={obj.author}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleCardAuthor(e, obj);
+                  }}
+                >
+                  {obj.author}
+                </span>
+              </div>
+            </>
+          ))}
+        </div>
       </main>
       {modalContent && (
         <Modal show={showModal} onClose={closeModal}>
           <Helmet>
             <title>
-              {modalContent.title} ({modalContent.author})
+              {modalContent.title} ({modalContent.authorFull})
             </title>
             <meta
               name="description"
@@ -189,7 +329,7 @@ function App() {
           </Helmet>
           <h2>{modalContent.title}</h2>
           <h4>
-            {modalContent.author}, {modalContent.book}
+            {modalContent.authorFull}, {modalContent.book}
           </h4>
           <p>{parse(modalContent.content)}</p>
         </Modal>

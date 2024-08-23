@@ -39,6 +39,7 @@ const selectStyle = {
   menu: (provided) => ({
     ...provided,
     backgroundColor: '#2f3237',
+    marginTop: '2px',
   }),
   dropdownIndicator: (provided) => ({
     ...provided,
@@ -56,6 +57,7 @@ const selectStyle = {
     color: '#5e636e',
     '&:hover': {
       color: '#8f96a3',
+      cursor: 'pointer',
     },
   }),
   indicatorSeparator: (provided) => ({

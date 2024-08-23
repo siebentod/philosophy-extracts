@@ -37,7 +37,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/:id" element={<App />} />
+        <Route path="/id/:id" element={<App />} />
+        <Route path="/author/:authorName" element={<App />} />
         <Route path="/about" element={<About />} />
         {/* <Route path="*" element={<NotFound />} /> */}
       </Routes>
