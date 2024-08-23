@@ -7,12 +7,21 @@ const selectStyle = {
       border: '1px solid #c2c9d6',
     },
     boxShadow: 'none',
-    fontSize: '0.8rem',
+    fontSize: '0.813rem',
     padding: '0px',
     margin: '0px',
-    height: 'mincontent',
+    height: '30px',
     transition: 'border-color 0.25s',
-    minHeight: '34px',
+    minHeight: '30px',
+  }),
+  valueContainer: (provided) => ({
+    ...provided,
+    paddingRight: '3px',
+  }),
+  singleValue: (provided) => ({
+    ...provided,
+    color: 'rgba(255, 255, 255, 0.87)',
+    paddingRight: '0',
   }),
   placeholder: (provided) => ({
     ...provided,
@@ -32,10 +41,6 @@ const selectStyle = {
     paddingBottom: '1px',
     paddingTop: '1px',
   }),
-  singleValue: (provided) => ({
-    ...provided,
-    color: 'rgba(255, 255, 255, 0.87)',
-  }),
   menu: (provided) => ({
     ...provided,
     backgroundColor: '#2f3237',
@@ -45,6 +50,8 @@ const selectStyle = {
     ...provided,
     paddingTop: 1,
     paddingBottom: 1,
+    paddingLeft: '1px',
+    paddingRight: '3px',
     color: '#5e636e',
     '&:hover': {
       color: '#8f96a3',
@@ -54,6 +61,8 @@ const selectStyle = {
     ...provided,
     paddingTop: 1,
     paddingBottom: 1,
+    paddingLeft: '0',
+    paddingRight: '4px',
     color: '#5e636e',
     '&:hover': {
       color: '#8f96a3',
