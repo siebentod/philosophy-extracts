@@ -1,4 +1,4 @@
-import { useEffect, useReducer } from 'react';
+import { useEffect, useLayoutEffect, useReducer } from 'react';
 import './App.scss';
 import './index.css';
 import parse from 'html-react-parser';
@@ -156,7 +156,7 @@ function App() {
       type: 'showModal',
       payload: obj,
     });
-    navigate(`/id/${obj.id}`);
+    navigate(`/text/${obj.id}`);
   };
 
   const closeModal = () => {
@@ -188,7 +188,7 @@ function App() {
     dispatch({ type: 'filteredAuthors', payload: filteredAuthors });
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (id) {
       const item = filteredArr.find((obj) => obj.id === id);
       if (item) {
