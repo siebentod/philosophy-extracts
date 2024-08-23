@@ -67,7 +67,7 @@ main {
   &__book {
     flex: 1;
     padding: 3px 1px 3px 7px;
-    min-width: 12ch;
+    // min-width: 12ch;
     max-width: 30ch;
     white-space: nowrap;
     overflow: hidden;
@@ -76,9 +76,9 @@ main {
     text-align: start !important;
   }
   &__author {
-    flex: 1;
+    flex: 4;
     margin: 0 2px 0 4px;
-    min-width: 14px !important;
+    // min-width: 14px !important;
     max-width: 13ch !important;
     // width: 14ch !important;
     text-align: center;

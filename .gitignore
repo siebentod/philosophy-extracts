@@ -25,4 +25,5 @@ dist-ssr
 
 src/test/
 *prettier*
-*NotFound*
+*/App-normal*
+*/App-old*
