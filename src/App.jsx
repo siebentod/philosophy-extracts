@@ -1,4 +1,10 @@
-import { useEffect, useLayoutEffect, useReducer } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useReducer,
+} from 'react';
 import './App.scss';
 import './index.css';
 import parse from 'html-react-parser';
@@ -130,19 +136,22 @@ function App() {
     dispatch({ type: 'searchInput', payload: value });
   };
 
-  const onPeriodChange = (selectedPeriod) => {
+  const onPeriodChange = useCallback(function onPeriodChange(selectedPeriod) {
     if (selectedPeriod) {
       dispatch({ type: 'chosenPeriod', payload: selectedPeriod });
       authorHandleWhenPeriodSelected(selectedPeriod);
     } else dispatch({ type: 'clearPeriod' });
-  };
+  }, []);
 
-  const onAuthorChange = (selectedAuthor) => {
-    if (selectedAuthor) {
-      dispatch({ type: 'chosenAuthor', payload: selectedAuthor });
-      navigate(`/author/${selectedAuthor.value}`);
-    } else dispatch({ type: 'clearAuthor' });
-  };
+  const onAuthorChange = useCallback(
+    function onAuthorChange(selectedAuthor) {
+      if (selectedAuthor) {
+        dispatch({ type: 'chosenAuthor', payload: selectedAuthor });
+        navigate(`/author/${selectedAuthor.value}`);
+      } else dispatch({ type: 'clearAuthor' });
+    },
+    [navigate]
+  );
 
   const handleCardAuthor = (e, obj) => {
     e.stopPropagation();
@@ -190,7 +199,7 @@ function App() {
 
   useLayoutEffect(() => {
     if (id) {
-      const item = filteredArr.find((obj) => obj.id === id);
+      const item = dataRandom.find((obj) => obj.id === id);
       if (item) {
         dispatch({
           type: 'showModal',
@@ -199,12 +208,12 @@ function App() {
       }
     } else if (authorName) {
       dispatch({ type: 'authorFromCard', payload: authorName });
-    } else {
+    } else if (showModal) {
       dispatch({
         type: 'hideModal',
       });
     }
-  }, [id, authorName]);
+  }, [id, authorName, showModal]);
 
   useEffect(() => {
     if (showModal) {
@@ -215,7 +224,7 @@ function App() {
     if (status === 'loaded' && !selectedAuthor && !showModal) {
       navigate('/');
     }
-  }, [selectedAuthor, showModal]);
+  }, [navigate, selectedAuthor, showModal, status]);
 
   useEffect(() => {
     const varArrFiltered = dataRandom.filter((item) => {
@@ -238,6 +247,17 @@ function App() {
     });
   }, [searchText, selectedPeriod, selectedAuthor, loose]);
 
+  const periods = useMemo(
+    () => [
+      { value: 'antiquity', label: 'Античность' },
+      { value: 'middleages', label: 'Средние века' },
+      { value: 'renaissance', label: 'Ренессанс' },
+      { value: 'earlymodern', label: 'Раннее Новое Время' },
+      { value: 'latemodern', label: 'Позднее Новое Время' },
+    ],
+    []
+  );
+
   return (
     <>
       <HeadInHelmet />
@@ -256,13 +276,7 @@ function App() {
           />
         </div>
         <Select
-          options={[
-            { value: 'antiquity', label: 'Античность' },
-            { value: 'middleages', label: 'Средние века' },
-            { value: 'renaissance', label: 'Ренессанс' },
-            { value: 'earlymodern', label: 'Раннее Новое Время' },
-            { value: 'latemodern', label: 'Позднее Новое Время' },
-          ]}
+          options={periods}
           onChange={onPeriodChange}
           placeholder="Выбрать эпоху"
           isClearable
