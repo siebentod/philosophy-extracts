@@ -350,7 +350,7 @@ function App() {
           <h4>
             {modalContent.authorFull}, {modalContent.book}
           </h4>
-          <p>{parse(modalContent.content)}</p>
+          <div>{parse(modalContent.content)}</div>
         </Modal>
       )}
     </>

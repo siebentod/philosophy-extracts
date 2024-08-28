@@ -4,7 +4,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.95);
+  background-color: rgba(0, 0, 0, 0.94);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -22,6 +22,19 @@
   overflow-y: auto;
   color: black;
   text-align: left;
+  animation: slide-up-fade-in 0.1s ease-out forwards;
+}
+
+@keyframes slide-up-fade-in {
+  0% {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  100% {
+    transfrom: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal-close {
