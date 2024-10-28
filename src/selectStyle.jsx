@@ -1,7 +1,9 @@
+const inputBackground = '#2f3237';
+
 const selectStyle = {
   control: (provided) => ({
     ...provided,
-    backgroundColor: '#2f3237',
+    backgroundColor: inputBackground,
     border: '1px solid #5e636e',
     '&:hover': {
       border: '1px solid #c2c9d6',
@@ -29,7 +31,7 @@ const selectStyle = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor: state.isFocused ? '#5e636e' : '#2f3237',
+    backgroundColor: state.isFocused ? '#5e636e' : inputBackground,
     color: state.isSelected ? '#8f96a3;' : 'rgba(255, 255, 255, 0.87)',
     '&:hover': {
       backgroundColor: '#5e636e',
@@ -43,8 +45,9 @@ const selectStyle = {
   }),
   menu: (provided) => ({
     ...provided,
-    backgroundColor: '#2f3237',
+    backgroundColor: inputBackground,
     marginTop: '2px',
+    minWidth: '130px',
   }),
   dropdownIndicator: (provided) => ({
     ...provided,

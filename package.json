@@ -10,14 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "autoprefixer": "^10.4.20",
     "html-react-parser": "^5.1.10",
+    "postcss": "^8.4.47",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-helmet": "^6.1.0",
+    "react-icons": "^5.3.0",
     "react-router-dom": "^6.24.1",
     "react-select": "^5.8.0",
     "sass": "^1.77.8",
-    "string-strip-html": "^13.4.8"
+    "string-strip-html": "^13.4.8",
+    "tailwindcss": "^3.4.14"
   },
   "devDependencies": {
     "@types/react": "^18.3.3",
@@ -26,7 +30,7 @@
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.2",
     "eslint-plugin-react-hooks": "^4.6.2",
-    "eslint-plugin-react-refresh": "^0.4.7",
+    "eslint-plugin-react-refresh": "^0.4.12",
     "vite": "^5.3.1",
     "vite-plugin-sitemap": "^0.6.2"
   }

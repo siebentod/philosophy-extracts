@@ -7,6 +7,7 @@ import {
 } from 'react';
 import './App.scss';
 import './index.css';
+import './globals.css';
 import parse from 'html-react-parser';
 import { useNavigate, useParams } from 'react-router-dom';
 import { dataRandom } from './data.js';
@@ -14,8 +15,8 @@ import Modal from './Modal.jsx';
 import Select from 'react-select';
 import selectStyle from './selectStyle';
 import { looseIncludes, normalIncludes } from './looseIncludes.js';
-import HeadInHelmet from './HeadInHelmet';
 import { Helmet } from 'react-helmet';
+import LinksIcons from './LinksIcons.jsx';
 
 const authors = new Set();
 dataRandom.forEach((item) => {
@@ -260,7 +261,11 @@ function App() {
 
   return (
     <>
-      <HeadInHelmet />
+      <LinksIcons />
+      <Helmet>
+        <title>Антология отрывков философских текстов</title>
+        <meta name="description" content="С возможностью поиска" />
+      </Helmet>
       <div className="filter">
         <div className="inputPlusCheckbox">
           <input
