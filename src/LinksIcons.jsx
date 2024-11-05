@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 function LinksIcons({
   color = 'text-white',
-  pos = 'top-2 right-2',
+  pos = 'top-2 right-3',
   noabout = false,
   home = false,
 }) {

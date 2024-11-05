@@ -1,117 +1,26 @@
-import {
+import React, {
+  useState,
   useCallback,
   useEffect,
   useLayoutEffect,
   useMemo,
   useReducer,
 } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { useInView } from 'react-intersection-observer';
+import parse from 'html-react-parser';
+import Select from 'react-select';
+
+import { Helmet } from 'react-helmet';
 import './App.scss';
 import './index.css';
 import './globals.css';
-import parse from 'html-react-parser';
-import { useNavigate, useParams } from 'react-router-dom';
-import { dataRandom } from './data.js';
 import Modal from './Modal.jsx';
-import Select from 'react-select';
 import selectStyle from './selectStyle';
 import { looseIncludes, normalIncludes } from './looseIncludes.js';
-import { Helmet } from 'react-helmet';
 import LinksIcons from './LinksIcons.jsx';
-
-const authors = new Set();
-dataRandom.forEach((item) => {
-  authors.add(item.author);
-});
-const filtered = Array.from(authors)
-  .sort()
-  .map((author) => ({
-    value: author,
-    label: author,
-  }));
-
-const initialState = {
-  filteredArr: dataRandom,
-  filteredCount: dataRandom.length,
-  showModal: false,
-  modalContent: null,
-  searchText: '',
-  selectedPeriod: null,
-  selectedAuthor: null,
-  filteredAuthors: filtered,
-  loose: false,
-  status: '',
-};
-
-function reducer(state, action) {
-  switch (action.type) {
-    case 'filtered':
-      return {
-        ...state,
-        filteredArr: action.payload.filteredArr,
-        filteredCount: action.payload.filteredCount,
-      };
-    case 'searchInput':
-      return {
-        ...state,
-        searchText: action.payload,
-      };
-    case 'chosenPeriod':
-      return {
-        ...state,
-        selectedPeriod: action.payload,
-      };
-    case 'clearPeriod':
-      return {
-        ...state,
-        selectedPeriod: null,
-        selectedAuthor: null,
-        filteredAuthors: initialState.filteredAuthors,
-      };
-    case 'chosenAuthor':
-      return {
-        ...state,
-        selectedAuthor: action.payload,
-      };
-    case 'clearAuthor':
-      return {
-        ...state,
-        selectedAuthor: null,
-      };
-    case 'authorFromCard':
-      return {
-        ...state,
-        status: 'loaded',
-        selectedAuthor: {
-          ...state.selectedAuthor,
-          value: action.payload,
-          label: action.payload,
-        },
-      };
-    case 'filteredAuthors':
-      return {
-        ...state,
-        filteredAuthors: action.payload,
-        selectedAuthor: null,
-      };
-    case 'showModal':
-      return {
-        ...state,
-        modalContent: action.payload,
-        showModal: true,
-        status: 'loaded',
-      };
-    case 'hideModal':
-      return {
-        ...state,
-        showModal: false,
-      };
-    case 'toggleLoose':
-      return {
-        ...state,
-        loose: action.payload,
-      };
-  }
-}
+import { initialState, reducer } from './lib.js';
+import { dataRandom } from './data.js';
 
 function App() {
   const [
@@ -131,6 +40,9 @@ function App() {
   ] = useReducer(reducer, initialState);
   const navigate = useNavigate();
   const { id, authorName } = useParams();
+  const [visibleCards, setVisibleCards] = useState([]);
+  const [loadCount, setLoadCount] = useState(50);
+  const { ref, inView } = useInView();
 
   const onSearchChange = (e) => {
     const value = e.target.value;
@@ -259,13 +171,39 @@ function App() {
     []
   );
 
+  useEffect(() => {
+    setVisibleCards(filteredArr.slice(0, loadCount));
+  }, [filteredArr, loadCount]);
+
+  // Подгружаем новую партию при скролле
+  useEffect(() => {
+    if (inView && loadCount < filteredArr.length) {
+      const nextLoadCount = loadCount + 20;
+      setVisibleCards(filteredArr.slice(0, nextLoadCount));
+      setLoadCount(nextLoadCount);
+    }
+  }, [filteredArr, inView, loadCount]);
+
   return (
     <>
       <LinksIcons />
-      <Helmet>
-        <title>Антология отрывков философских текстов</title>
-        <meta name="description" content="С возможностью поиска" />
-      </Helmet>
+      {authorName ? (
+        <Helmet>
+          <title>{authorName}</title>
+          <meta
+            name="description"
+            content="Антология отрывков философских текстов"
+          />
+        </Helmet>
+      ) : (
+        <Helmet>
+          <title>Антология отрывков философских текстов</title>
+          <meta
+            name="description"
+            content="С возможностью поиска и фильтрации"
+          />
+        </Helmet>
+      )}
       <div className="filter">
         <div className="inputPlusCheckbox">
           <input
@@ -307,27 +245,21 @@ function App() {
       </div>
       <main>
         <div className="grid">
-          {filteredArr.map((obj) => (
-            <>
+          {visibleCards.map((obj) => (
+            <React.Fragment key={obj.id}>
               <div
                 className="card__part card__title"
                 href={`/${obj.id}`}
-                key={obj.id}
                 onClick={(e) => openModal(e, obj)}
               >
                 {obj.title}
               </div>
               <div className="card__part card__bookAndAuthor">
-                <span
-                  className="card__bookAndAuthor__book"
-                  key={obj.book}
-                  title={obj.book}
-                >
+                <span className="card__bookAndAuthor__book" title={obj.book}>
                   {obj.book}
                 </span>
                 <span
                   className="card__bookAndAuthor__author"
-                  key={obj.author}
                   onClick={(e) => {
                     e.preventDefault();
                     handleCardAuthor(e, obj);
@@ -336,8 +268,11 @@ function App() {
                   {obj.author}
                 </span>
               </div>
-            </>
+            </React.Fragment>
           ))}
+          {loadCount < filteredArr.length && (
+            <div ref={ref} style={{ height: '20px' }} /> // Невидимый триггер для подгрузки
+          )}
         </div>
       </main>
       {modalContent && (

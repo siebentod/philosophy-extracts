@@ -1,10 +1,5 @@
 $input-background: #2f3237;
 
-$theme-colors: (
-  'input-background': grey,
-  'anotherColor': #fff,
-);
-
 body.modal-open {
   overflow: hidden;
 }
@@ -54,7 +49,7 @@ main {
     background-color: rgb(27, 27, 27);
     &:hover {
       color: rgba(255, 255, 255, 0.87);
-      box-shadow: inset 0 0 0 0.5px rgba(255, 255, 255, 0.87);
+      box-shadow: inset 0 0 0 0.5px #8f96a3;
     }
   }
 }
