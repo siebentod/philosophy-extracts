@@ -241,7 +241,7 @@ function App() {
         </button>
       </div>
       <div className="countResults" style={{ fontSize: '0.8rem' }}>
-        {filteredCount} результатов найдено
+        {filteredCount < 1172 && `${filteredCount} результатов найдено`}
       </div>
       <main>
         <div className="grid">
