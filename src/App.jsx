@@ -189,7 +189,7 @@ function App() {
       <LinksIcons />
       {authorName ? (
         <Helmet>
-          <title>{authorName}</title>
+          <title>{authorName} | Extracts</title>
           <meta
             name="description"
             content="Антология отрывков философских текстов"
@@ -197,7 +197,7 @@ function App() {
         </Helmet>
       ) : (
         <Helmet>
-          <title>Антология отрывков философских текстов</title>
+          <title>Антология отрывков философских текстов | Extracts</title>
           <meta
             name="description"
             content="С возможностью поиска и фильтрации"
@@ -279,7 +279,7 @@ function App() {
         <Modal show={showModal} onClose={closeModal}>
           <Helmet>
             <title>
-              {modalContent.title} ({modalContent.authorFull})
+              {modalContent.title} ({modalContent.authorFull}) | Extracts
             </title>
             <meta
               name="description"

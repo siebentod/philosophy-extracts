@@ -5,7 +5,7 @@ function About() {
   return (
     <>
       <Helmet>
-        <title>Антология отрывков философских текстов</title>
+        <title>Антология отрывков философских текстов | Extracts</title>
         <meta name="description" content="С возможностью поиска" />
       </Helmet>
       <LinksIcons noabout home />
