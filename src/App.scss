@@ -259,3 +259,23 @@ main {
     cursor: pointer !important;
   }
 }
+
+@media (max-width: 650px) {
+  .icons {
+    display: none !important;
+  }
+  .openRandom {
+    display: none;
+  }
+  input[type='checkbox'] {
+    display: none;
+  }
+  .modal-scrollable-content {
+    margin-left: 15px;
+    margin-right: 5px;
+  }
+  .cards {
+    flex: 1 1 0;
+    max-width: unset;
+  }
+}
