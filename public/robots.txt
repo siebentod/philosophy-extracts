@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://rigveda.vercel.app
+
+# Sitemaps
+Sitemap: https://rigveda.vercel.app/sitemap.xml
