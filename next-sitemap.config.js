@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://rigveda.vercel.app',
+  siteUrl: 'https://philosophy-extracts.vercel.app/',
   generateRobotsTxt: true,
   exclude: ['/about'],
 };
