@@ -28,7 +28,11 @@ function Table({ filteredArr, handleCardAuthor }) {
         <div className="grid">
           {visibleCards.map((obj) => (
             <React.Fragment key={obj.id}>
-              <Link className="card__part card__title" href={`/text/${obj.id}`}>
+              <Link
+                className="card__part card__title"
+                href={`/text/${obj.id}`}
+                title={obj.title}
+              >
                 {obj.title}
               </Link>
               <div className="card__part card__bookAndAuthor">

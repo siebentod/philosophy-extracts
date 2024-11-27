@@ -176,7 +176,7 @@ function App({ children }) {
         selectedAuthor={selectedAuthor}
         searchText={searchText}
       />
-      <div className="countResults" style={{ fontSize: '0.8rem' }}>
+      <div className="countResults">
         {filteredCount < 1172 && `${filteredCount} результатов найдено`}
       </div>
       <Table

@@ -44,8 +44,8 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
-    padding: 1px 9px;
-    font-size: 0.875rem;
+    padding: 4px 9px;
+    font-size: 0.938rem;
     background-color: rgb(27, 27, 27);
     &:hover {
       color: rgba(255, 255, 255, 0.87);
@@ -75,6 +75,7 @@ main {
     text-align: start !important;
   }
   &__author {
+    font-size: 0.938rem;
     flex: 4;
     margin: 0 1px 0 4px;
     // min-width: 14px !important;
@@ -102,6 +103,7 @@ main {
 @media (max-width: 650px) {
   .filter {
     gap: 1px !important;
+    margin-bottom: 3px;
   }
   .card__bookAndAuthor__author {
     margin: 1.5px;
@@ -122,22 +124,22 @@ main {
   flex-direction: row;
   flex-flow: wrap;
   justify-content: center;
-  margin-top: 8px;
-  gap: 5px;
+  margin-top: 7px;
+  gap: 7px;
   .inputPlusCheckbox {
     display: flex;
   }
   select,
   #openRandom,
   #search {
-    height: 26px;
+    height: 27px;
     font-family: inherit;
     background-color: $input-background;
     border: 1px solid #5e636e;
     border-radius: 4px;
     outline: none;
     color: rgba(255, 255, 255, 0.87);
-    font-size: 0.813rem;
+    font-size: 0.875rem;
     transition: border-color 0.1s;
     &:hover {
       border: 1px solid hsl(221, 8%, 50%);
@@ -151,7 +153,7 @@ main {
     display: none;
   }
   #search {
-    width: 123px;
+    width: 145px;
     text-align: center;
     &:focus {
       border: 1px solid #c2c9d6;
@@ -172,7 +174,7 @@ main {
     accent-color: rgba(255, 255, 255, 0.87);
   }
   .select {
-    padding-left: 8px;
+    padding-left: 10px;
     -webkit-appearance: none; /* Для браузеров на основе WebKit */
     -moz-appearance: none; /* Для Firefox */
     appearance: none; /* Универсальный вариант */
@@ -185,7 +187,7 @@ main {
     }
   }
   #openRandom {
-    width: 123px;
+    width: 125px;
     cursor: pointer;
     &:hover {
       border: 1px solid hsl(221, 8%, 50%);
@@ -203,6 +205,7 @@ select:has([value='default']:checked) {
 }
 
 .countResults {
+  font-size: 0.85rem;
   margin-top: 3px;
   margin-bottom: 6px;
   font-style: italic;
