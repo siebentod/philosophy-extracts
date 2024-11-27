@@ -8,7 +8,7 @@ export default function Select({
   value,
   handleClearSelect,
 }) {
-  const [width, setWidth] = useState('133');
+  const [width, setWidth] = useState('126');
   const spanRef = useRef(null);
 
   useEffect(() => {
@@ -16,9 +16,9 @@ export default function Select({
       if (spanRef.current) {
         const optionWidth = spanRef.current.offsetWidth;
         // console.log('spanRef.current', spanRef.current);
-        optionWidth > 133
+        optionWidth > 126
           ? setWidth(spanRef.current.offsetWidth)
-          : setWidth(133);
+          : setWidth(126);
       }
     };
 
