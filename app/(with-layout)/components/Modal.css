@@ -25,6 +25,12 @@
   animation: slide-up-fade-in 0.1s ease-out forwards;
 }
 
+@media (max-width: 500px) {
+  .modal-content {
+    font-size: 1rem;
+  }
+}
+
 @keyframes slide-up-fade-in {
   0% {
     transform: translateY(30px);
