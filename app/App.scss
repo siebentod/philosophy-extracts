@@ -1,8 +1,8 @@
-$input-background: hsl(218, 5%, 19%);
-$input-border: hsl(218, 5%, 25%);
-$input-border-hover: hsl(218, 5%, 33%);
+$input-background: #2f3237;
+$input-border: #5e636e;
+$input-border-hover: #757c8a;
 $border: hsl(218, 5%, 40%);
-$input-text-color: hsl(219, 10%, 65%);
+$input-text-color: rgb(143, 150, 163);
 
 body.modal-open {
   overflow: hidden;
@@ -24,6 +24,7 @@ main {
 }
 
 .card__part {
+  font-size: 0.875rem;
   border: 1px solid $border;
   text-align: start;
   display: flex;
@@ -48,8 +49,8 @@ main {
     overflow: hidden;
     text-overflow: ellipsis;
     display: inline-block;
-    padding: 4px 9px;
-    font-size: 0.938rem;
+    padding: 1px 9px;
+    // font-size: 0.938rem;
     background-color: rgb(27, 27, 27);
     &:hover {
       color: rgba(255, 255, 255, 0.87);
@@ -64,7 +65,7 @@ main {
   align-items: center;
   background-color: rgba(255, 255, 255);
   color: black;
-  font-size: 0.875rem;
+  // font-size: 0.875rem;
   grid-column: 2;
   border-left: none;
   &__book {
@@ -79,7 +80,7 @@ main {
     text-align: start !important;
   }
   &__author {
-    font-size: 0.938rem;
+    // font-size: 0.938rem;
     flex: 4;
     margin: 0 1px 0 4px;
     // min-width: 14px !important;
@@ -117,7 +118,7 @@ main {
   select,
   #openRandom,
   #search {
-    height: 27px;
+    height: 25px;
     font-family: inherit;
     background-color: $input-background;
     border: 1px solid $input-border;
@@ -138,7 +139,7 @@ main {
     display: none;
   }
   #search {
-    width: 135px;
+    width: 130px;
     text-align: center;
     &:focus {
       border: 1px solid #c2c9d6;
