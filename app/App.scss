@@ -1,4 +1,8 @@
-$input-background: #2f3237;
+$input-background: hsl(218, 5%, 19%);
+$input-border: hsl(218, 5%, 23%);
+$input-border-hover: hsl(218, 5%, 33%);
+$border: hsl(218, 5%, 38%);
+$input-text-color: hsl(219, 10%, 65%);
 
 body.modal-open {
   overflow: hidden;
@@ -20,7 +24,7 @@ main {
 }
 
 .card__part {
-  border: 1px solid #8f96a3;
+  border: 1px solid $border;
   text-align: start;
   display: flex;
   justify-content: start;
@@ -49,7 +53,7 @@ main {
     background-color: rgb(27, 27, 27);
     &:hover {
       color: rgba(255, 255, 255, 0.87);
-      box-shadow: inset 0 0 0 0.5px #8f96a3;
+      box-shadow: inset 0 0 0 0.5px $border;
     }
   }
 }
@@ -116,14 +120,14 @@ main {
     height: 27px;
     font-family: inherit;
     background-color: $input-background;
-    border: 1px solid #5e636e;
+    border: 1px solid $input-border;
     border-radius: 4px;
     outline: none;
     color: rgba(255, 255, 255, 0.87);
     font-size: 0.813rem;
     transition: border-color 0.1s;
     &:hover {
-      border: 1px solid hsl(221, 8%, 50%);
+      border: 1px solid $input-border-hover;
       outline: none;
     }
   }
@@ -141,11 +145,11 @@ main {
       outline: none;
     }
     &::placeholder {
-      color: #8f96a3;
+      color: $input-text-color;
       font: inherit;
     }
     &::-moz-placeholder {
-      color: #8f96a3;
+      color: $input-text-color;
       font: inherit;
       opacity: 1;
     }
@@ -169,20 +173,17 @@ main {
   }
   #openRandom {
     width: 115px;
+    font-weight: 600;
     cursor: pointer;
-    &:hover {
-      border: 1px solid hsl(221, 8%, 50%);
-      outline: none;
-    }
   }
 }
 
 select option[value='default'] {
-  color: #8f96a3 !important;
+  color: $input-text-color !important;
 }
 
 select:has([value='default']:checked) {
-  color: #8f96a3 !important;
+  color: $input-text-color !important;
 }
 
 .countResults {
