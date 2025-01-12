@@ -11,7 +11,7 @@ const periods = [
 
 function Header({
   onSearchChange,
-  onCheckboxChange,
+  // onCheckboxChange,
   onPeriodChange,
   onAuthorChange,
   handleClearSelect,
