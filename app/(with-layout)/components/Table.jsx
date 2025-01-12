@@ -25,7 +25,7 @@ function Table({ filteredArr, handleCardAuthor }) {
   return (
     <>
       <main>
-        <div className="grid">
+        <div className="grid class-table">
           {visibleCards.map((obj) => (
             <React.Fragment key={obj.id}>
               <Link

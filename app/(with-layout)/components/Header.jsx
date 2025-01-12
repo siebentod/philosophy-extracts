@@ -42,12 +42,12 @@ function Header({
               </button>
             )}
           </div>
-          <input
+          {/* <input
             type="checkbox"
             title="Loose"
             onChange={onCheckboxChange}
             id="checkbox"
-          />
+          /> */}
         </div>
         <Select
           onChange={(e) => onPeriodChange(e.target.value)}
@@ -76,7 +76,7 @@ function Header({
           ))}
         </Select>
         <button id="openRandom" onClick={handleRandom}>
-          Open Random
+          Случайный
         </button>
       </div>
     </>

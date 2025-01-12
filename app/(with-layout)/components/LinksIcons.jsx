@@ -19,7 +19,7 @@ function LinksIcons({
           <FaInfo />
         </Link>
       )}
-      <a href="https://github.com/siebentod/philosophy-extracts">
+      <a href="https://github.com/siebentod/">
         <FaGithub />
       </a>
     </div>

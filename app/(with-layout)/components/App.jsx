@@ -6,7 +6,8 @@ import { looseIncludes, normalIncludes } from './looseIncludes.js';
 import LinksIcons from './LinksIcons.jsx';
 import { initFilteredAuthors } from '../lib/lib.js';
 import { dataRandom } from '../lib/data.js';
-import Table from './Table';
+// import Table from './Table';
+import Cards from './Cards';
 import Header from './Header';
 import { usePathname, useRouter } from 'next/navigation';
 import GetParams from './GetParams.jsx';
@@ -179,10 +180,16 @@ function App({ children }) {
       <div className="countResults">
         {filteredCount < 1172 && `${filteredCount} результатов найдено`}
       </div>
-      <Table
+      {/* <Table
         filteredArr={filteredArr}
         // openModal={openModal}
         handleCardAuthor={handleCardAuthor}
+      /> */}
+      <Cards
+        filteredArr={filteredArr}
+        // openModal={openModal}
+        handleCardAuthor={handleCardAuthor}
+        searchText={searchText}
       />
       {showModal && children}
     </>

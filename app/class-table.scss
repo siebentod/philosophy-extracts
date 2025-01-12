@@ -1,0 +1,90 @@
+$input-background: #2f3237;
+$input-border: #5e636e;
+$input-border-hover: #757c8a;
+$border: hsl(218, 5%, 40%);
+$input-text-color: rgb(143, 150, 163);
+
+.class-table {
+  .card__part {
+    font-size: 0.875rem;
+    border: 1px solid $border;
+    text-align: start;
+    display: flex;
+    justify-content: start;
+    min-width: 0;
+    &:nth-last-child(n + 3) {
+      border-bottom: none;
+    }
+    p {
+      padding: 2px;
+      margin: 0 !important;
+    }
+    &.card__title {
+      min-width: 35dvw;
+      max-width: 85dvw;
+      display: flex;
+      justify-content: start;
+      align-content: center;
+      text-align: start;
+      cursor: pointer;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      padding: 1px 9px;
+      // font-size: 0.938rem;
+      background-color: rgb(27, 27, 27);
+      &:hover {
+        color: rgba(255, 255, 255, 0.87);
+        box-shadow: inset 0 0 0 0.5px $border;
+      }
+    }
+  }
+
+  .card__bookAndAuthor {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgba(255, 255, 255);
+    color: black;
+    // font-size: 0.875rem;
+    grid-column: 2;
+    border-left: none;
+    &__book {
+      flex: 1;
+      padding: 3px 1px 3px 7px;
+      min-width: 9ch;
+      max-width: 30ch;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      text-align: start !important;
+    }
+    &__author {
+      // font-size: 0.938rem;
+      flex: 4;
+      margin: 0 1px 0 4px;
+      // min-width: 14px !important;
+      max-width: 13ch !important;
+      // width: 14ch !important;
+      text-align: center;
+      color: white;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      cursor: pointer;
+      background-color: rgb(27, 27, 27);
+      border-radius: 4px;
+      padding: 2px 9px;
+      box-shadow: 0 1px 1.5px 0 rgba(0, 0, 0, 0.1),
+        0 1px 2px 0 rgba(0, 0, 0, 0.2);
+      &:hover {
+        background-color: $input-background;
+        /* border-radius: 10px; */
+        /* padding: 2px 10px; */
+      }
+    }
+  }
+}
