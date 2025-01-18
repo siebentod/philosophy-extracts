@@ -11,7 +11,6 @@ import Cards from './Cards';
 import Header from './Header';
 import { usePathname, useRouter } from 'next/navigation';
 import GetParams from './GetParams.jsx';
-import Head from 'next/head';
 
 function App({ children }) {
   const [filteredArr, setFilteredArr] = useState(dataRandom);
@@ -158,12 +157,6 @@ function App({ children }) {
 
   return (
     <>
-      <Head>
-        <meta
-          name="google-site-verification"
-          content="yW0UNzfYP4wvVQU3xSXJO6QesaQccZ8FrrLVKo7xvtg"
-        />
-      </Head>
       <LinksIcons />
       <Suspense>
         <GetParams
